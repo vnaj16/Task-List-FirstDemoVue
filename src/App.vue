@@ -2,8 +2,11 @@
   <div id="app">
     <NameCompany v-bind:name="company"/>
     <TasksList v-bind:tasks="tasks"
-               v-on:delete-task="deleteTask"/>
+               v-on:delete-task="deleteTask"
+                v-on:edit-task="editTask"/>
     <AddTaskItem v-on:add-task="addTask"/>
+    <br/>
+    <EditTaskItem v-bind:task="taskSelected"/>
   </div>
 </template>
 
@@ -11,9 +14,11 @@
 import TasksList from "@/components/tasks-list";
 import NameCompany from "@/components/name-company";
 import AddTaskItem from "@/components/add-task-item";
+import EditTaskItem from "@/components/edit-task-item";
 export default {
   name: 'App',
   components: {
+    EditTaskItem,
     AddTaskItem,
     TasksList,
     NameCompany
@@ -42,7 +47,12 @@ export default {
           completed: false
         }
       ],
-      company: 'dix Agro'
+      company: 'dix Agro',
+      taskSelected:         {
+        id:3,
+        title: 'Study Vue Framework 3',
+        completed: false
+      }
     }
   },
   methods:{
@@ -51,6 +61,10 @@ export default {
     },
     deleteTask(taskId){
       this.tasks = this.tasks.filter(task => task.id !== taskId);
+    },
+    editTask(taskId){
+      this.taskSelected = this.tasks.find(task=> task.id === taskId )
+      console.log('editing ' + taskId);
     }
   }
 }

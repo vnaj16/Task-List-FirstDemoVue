@@ -3,6 +3,7 @@
     <p v-on:click="markCompleted">{{task.title}}</p>
     <p>{{task.id}}</p>
     <button @click="$emit('delete-task', task.id)">Delete</button>
+    <button @click="$emit('edit-task', task.id)">Edit</button>
   </div>
 </template>
 
